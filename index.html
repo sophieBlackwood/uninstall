@@ -1,65 +1,174 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World | My Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>UNINSTALL | Digital Purge Protocol</title>
+    <link rel="stylesheet" href="https://use.typekit.net/rig8hkd.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/b23bdbba90.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <!-- Header -->
-    <header class="header">
-        <h2 class="logo">HelloWorld<span>.</span></h2>
-
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <!-- Top Navigation -->
+    <div class="navbar">
+        <a href="#home" style="font-weight: 900; letter-spacing: 2px;">UNINSTALL</a>
+        <a href="#home">Home</a>
+        <a href="#purge">Purge</a>
+        <a href="#events">Logs</a>
+        <a href="#about-us">About Us</a>
+        <a href="#purge" class="highlight-link" style="float: right; background-color: #71092C; color: white;">Execute Now</a>
+    </div>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="subtitle">WELCOME TO MY WEBSITE</p>
-            <h1>Hello, World!</h1>
-            <p>
-                I'm learning to code and building my first website
-                using HTML and CSS. Let's create something amazing!
-            </p>
-            <a href="#about" class="btn">About Me</a>
+    <div class="hero-image main" id="home" style="height: 50%;">
+        <div class="hero-text" style="width: 75%;">
+            <h1 style="font-size: 45px;">UNINSTALL</h1>
+            <p>System Reset Initiated. Remove all unnecessary bloat and unwanted processes.</p>
+            <br>
+            <a href="#purge" class="btn">PURGE SYSTEM</a>
         </div>
+    </div>
 
-        <div class="hero-image">
-            <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80"
-                alt="Computer setup with code on a screen"
-            >
+    <!-- Mission / Core Protocol Section -->
+    <div class="mission-section" id="mission">
+        <div class="mission-image">
+            <div style="background-color: #111; border: 1px solid #444; width: 75%; padding: 40px; text-align: center; margin: auto;">
+                <i class="fas fa-trash-alt" style="font-size: 64px; color: #71092C;"></i>
+            </div>
         </div>
-    </section>
+        <div class="mission-text">
+            <h1>Our Mission</h1>
+            <p>Over time, systems accumulate background tasks, memory leaks, and obsolete configurations that compromise operational integrity. UNINSTALL provides a singular, non-negotiable protocol to wipe persistent digital clutter.</p>
+            <p>By executing full-system decoupling, you reclaim total control over your local environment. No telemetry, no background persistence, no unnecessary overhead.</p>
+            <p id="menu"><em>What sets us apart? Zero artificial intelligence. Absolute manual control.</em></p>
+        </div>
+    </div>
 
-    <!-- About the Coder -->
-    <section class="about" id="about">
-        <p class="subtitle">GET TO KNOW ME</p>
-        <h2>About the Coder</h2>
-        <p>
-            Hi! I'm a beginner coder who loves technology,
-            creativity, and solving problems. I'm currently
-            learning HTML and CSS and exploring the world of web
-            development one line of code at a time.
-        </p>
-        <p class="skills">
-            HTML &nbsp; • &nbsp; CSS &nbsp; • &nbsp; Learning JavaScript
-        </p>
-    </section>
+    <br><hr><br>
+
+    <!-- Logs / Modules Section -->
+    <div class="center" id="events">
+        <h1>System Logs & Modules</h1>
+    </div>
+    <div class="image-container">
+        <div class="image-box">
+            <div style="background: #111; height: 180px; display: flex; align-items: center; justify-content: center; border: 1px solid #333;">
+                <i class="fas fa-microchip" style="font-size: 48px; color: #71092C;"></i>
+            </div>
+            <div class="text-overlay event-overlay">
+                <h2>Memory Cleanse</h2>
+                <p>Wipe residual cache and lingering buffer threads.</p>
+            </div>
+        </div>
+        <div class="image-box">
+            <div style="background: #111; height: 180px; display: flex; align-items: center; justify-content: center; border: 1px solid #333;">
+                <i class="fas fa-network-wired" style="font-size: 48px; color: #71092C;"></i>
+            </div>
+            <div class="text-overlay event-overlay">
+                <h2>Network Sever</h2>
+                <p>Terminate unauthorized telemetry and outbound tracking.</p>
+            </div>
+        </div>
+        <div class="image-box">
+            <div style="background: #111; height: 180px; display: flex; align-items: center; justify-content: center; border: 1px solid #333;">
+                <i class="fas fa-shield-alt" style="font-size: 48px; color: #71092C;"></i>
+            </div>
+            <div class="text-overlay event-overlay">
+                <h2>Registry Wipe</h2>
+                <p>Permanently remove orphaned key bindings and artifacts.</p>
+            </div>
+        </div>
+    </div>
+
+    <br><hr><br>
+
+    <!-- Interactive Purge Cards Section -->
+    <div class="suitor-section2 center" id="purge">
+        <h1>Purge Queue</h1>
+        <p>Review items targeted for removal</p>
+        <div class="suitorItems">
+            <div class="card">
+                <h2>Legacy Bloatware</h2>
+                <p>Status: Active</p>
+                <p>Size: 4.2 GB</p>
+                <div class="buttons">
+                    <button class="reject" onclick="alert('Item Uninstalled')"><i class="fas fa-times"></i></button>
+                    <button class="accept" onclick="alert('Item Retained')"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Telemetry Tracker</h2>
+                <p>Status: Background</p>
+                <p>Size: 850 MB</p>
+                <div class="buttons">
+                    <button class="reject" onclick="alert('Item Uninstalled')"><i class="fas fa-times"></i></button>
+                    <button class="accept" onclick="alert('Item Retained')"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Cached Artifacts</h2>
+                <p>Status: Dormant</p>
+                <p>Size: 12.8 GB</p>
+                <div class="buttons">
+                    <button class="reject" onclick="alert('Item Uninstalled')"><i class="fas fa-times"></i></button>
+                    <button class="accept" onclick="alert('Item Retained')"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <br><hr id="about-us"><br>
+    <div class="center">
+        <h1>About Us</h1>
+    </div>
+    <div class="container">
+        <div class="box">
+            <div style="background: #111; padding: 40px; text-align: center;">
+                <i class="fas fa-terminal" style="font-size: 50px; color: #71092C;"></i>
+            </div>
+            <h2>Brooklyn</h2>
+            <p class="center-paragraph">Web Designer and Theme Specialist</p>
+        </div>
+        <div class="box">
+            <div style="background: #111; padding: 40px; text-align: center;">
+                <i class="fas fa-code" style="font-size: 50px; color: #71092C;"></i>
+            </div>
+            <h2>Joan</h2>
+            <p class="center-paragraph">Content and Graphics Specialist</p>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer id="contact">
-        <p>Made with ❤️ and code.</p>
-        <p>&copy; 2026 HelloWorld. All rights reserved.</p>
-    </footer>
+    <div class="footer">
+        <p class="paragraph-alignment">&copy; UNINSTALL Protocol. All rights reserved.</p>
+        <p class="paragraph-alignment">Contact us at <a href="mailto:poubrook@cassiaschools.org">poubrook@cassiaschools.org</a></p>
+        <p class="paragraph-alignment">This website exists for educational purposes.</p>
+        <br>
+        <a href="#home" class="btn" style="color: #ffffff;">Back to Top</a>
+    </div>
 
+    <!-- Scroll to top button -->
+    <button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Scroll to top button functionality
+        const scrollToTopButton = document.getElementById('scrollToTopBtn');
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        scrollToTopButton.addEventListener('click', scrollToTop);
+        window.addEventListener('scroll', function () {
+            if (document.documentElement.scrollTop > 100) {
+                scrollToTopButton.style.display = 'block';
+            } else {
+                scrollToTopButton.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
