@@ -230,8 +230,8 @@ em {
     box-shadow: none;
 }
 
-/* Philosophy Section */
-.mission-section {
+/* Reason Section */
+.reason-section {
     display: flex;
     align-items: center;
     max-width: 1100px;
@@ -240,7 +240,7 @@ em {
     gap: 4rem;
 }
 
-.mission-image {
+.reason-image {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -271,11 +271,11 @@ em {
     opacity: 0.7;
 }
 
-.mission-text {
+.reason-text {
     flex: 2;
 }
 
-.mission-text h2 {
+.reason-text h2 {
     margin-bottom: 1.5rem;
 }
 
@@ -543,7 +543,7 @@ em {
     .nav-links {
         display: none; /* Mobile navigation simplified */
     }
-    .mission-section {
+    .reason-section {
         flex-direction: column;
         gap: 2rem;
         padding: 2rem 1.5rem;
