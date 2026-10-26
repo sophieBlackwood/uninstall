@@ -47,43 +47,91 @@
 
     <div class="section-divider"></div>
 
- <!-- Personal Letters -->
+    <!-- Personal Letters -->
     <section class="suitor-section2 center-section" id="letters">
         <h2>Personal Letters</h2>
         <p class="section-desc">Please understand that you mean so much to me. These letters are to those who I feel like I have more to say.</p>
         
         <div class="suitorItems">
-            <div class="card">
+            <!-- Letter 1 -->
+            <div class="card" 
+                 data-title="To Ghost Process"
+                 data-clue="What was the name of the cafe where we lost track of time?"
+                 data-password="coffee"
+                 data-content="Dear friend,<br><br>I wanted to write this to let you know how grateful I am for the quiet moments we shared. Even though threads fade and memories turn into silent backgrounds, your impact remains constant.<br><br>Thank you for everything. Rest well.">
+                
                 <h2>Ghost Process</h2>
                 <p class="card-body">A background thread running for years without an active caller.</p>
                 <div class="buttons">
-                    <button class="reject" onclick="alert('Released into silence.')" title="Uninstall">
-                        <i class="fa-solid fa-xmark"></i> Release
+                    <button class="open-letter-btn">
+                        <i class="fa-solid fa-envelope-open-text"></i> Open Letter
                     </button>
                 </div>
             </div>
 
-            <div class="card">
+            <!-- Letter 2 -->
+            <div class="card" 
+                 data-title="To Echo Telemetry"
+                 data-clue="What was our favorite constellation we tried to find that summer night?"
+                 data-password="orion"
+                 data-content="To my distant signal,<br><br>Sometimes silence feels like distance, but it isn't always meant that way. You taught me how to listen to the quiet. I hope wherever this journey takes you next, you find warmth and light.">
+                
                 <h2>Echo Telemetry</h2>
-                <p class="card-body">A silent monitor transmitting heartbeats to decomreasoned servers.</p>
+                <p class="card-body">A silent monitor transmitting heartbeats to decommissioned servers.</p>
                 <div class="buttons">
-                    <button class="reject" onclick="alert('Released into silence.')" title="Uninstall">
-                        <i class="fa-solid fa-xmark"></i> Release
+                    <button class="open-letter-btn">
+                        <i class="fa-solid fa-envelope-open-text"></i> Open Letter
                     </button>
                 </div>
             </div>
 
-            <div class="card">
+            <!-- Letter 3 -->
+            <div class="card" 
+                 data-title="To Legacy Artifacts"
+                 data-clue="What year did we build our first real project together?"
+                 data-password="2021"
+                 data-content="To the keepers of artifacts,<br><br>We built so many things that outlived their purpose. But the care and heart behind every line and every late night conversation will never go away. Goodbye, for now.">
+                
                 <h2>Legacy Artifacts</h2>
                 <p class="card-body">Traces of old relationships, conversations, and abandoned projects.</p>
                 <div class="buttons">
-                    <button class="reject" onclick="alert('Released into silence.')" title="Uninstall">
-                        <i class="fa-solid fa-xmark"></i> Release
+                    <button class="open-letter-btn">
+                        <i class="fa-solid fa-envelope-open-text"></i> Open Letter
                     </button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal Popup for Protected Letters -->
+    <div id="letterModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 id="modalTitle">Letter Title</h2>
+            
+            <!-- Password View -->
+            <div id="passwordView">
+                <p class="modal-clue-label"><i class="fa-solid fa-lock"></i> Verification Clue</p>
+                <p id="modalClue" class="modal-clue-text">Clue prompt goes here...</p>
+                
+                <form id="unlockForm" onsubmit="return false;">
+                    <input type="password" id="passwordInput" placeholder="Enter your answer..." autocomplete="off" required>
+                    <button type="submit" id="unlockBtn" class="btn">Unlock Letter</button>
+                </form>
+                <p id="errorMessage" class="error-msg"></p>
+            </div>
+
+            <!-- Unlocked Letter View -->
+            <div id="letterView" class="letter-view-content hidden">
+                <div class="letter-body" id="modalLetterContent">
+                    <!-- Unlocked content will be injected here -->
+                </div>
+                <div class="letter-footer">
+                    <button id="reLockBtn" class="btn-outline">Close & Lock</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -93,17 +141,13 @@
     <!-- Scroll to top button -->
     <button id="scrollToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
+    <!-- Interactive Script -->
     <script>
         // Scroll to top button functionality
         const scrollToTopButton = document.getElementById('scrollToTopBtn');
-        
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
         scrollToTopButton.addEventListener('click', scrollToTop);
         
         window.addEventListener('scroll', function () {
@@ -111,6 +155,79 @@
                 scrollToTopButton.style.display = 'flex';
             } else {
                 scrollToTopButton.style.display = 'none';
+            }
+        });
+
+        // --- Letter Modal Logic ---
+        const modal = document.getElementById('letterModal');
+        const closeModal = document.getElementById('closeModal');
+        const openBtns = document.querySelectorAll('.open-letter-btn');
+        
+        const modalTitle = document.getElementById('modalTitle');
+        const modalClue = document.getElementById('modalClue');
+        const passwordInput = document.getElementById('passwordInput');
+        const unlockForm = document.getElementById('unlockForm');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        const passwordView = document.getElementById('passwordView');
+        const letterView = document.getElementById('letterView');
+        const modalLetterContent = document.getElementById('modalLetterContent');
+        const reLockBtn = document.getElementById('reLockBtn');
+
+        let currentPassword = "";
+        let currentLetterContent = "";
+
+        // Open Modal
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.card');
+                const title = card.getAttribute('data-title');
+                const clue = card.getAttribute('data-clue');
+                currentPassword = card.getAttribute('data-password').toLowerCase().trim();
+                currentLetterContent = card.getAttribute('data-content');
+
+                // Reset view state
+                modalTitle.textContent = title;
+                modalClue.textContent = clue;
+                passwordInput.value = "";
+                errorMessage.textContent = "";
+                
+                passwordView.classList.remove('hidden');
+                letterView.classList.add('hidden');
+                modal.classList.add('active');
+                
+                setTimeout(() => passwordInput.focus(), 100);
+            });
+        });
+
+        // Close Modal
+        function hideModal() {
+            modal.classList.remove('active');
+        }
+
+        closeModal.addEventListener('click', hideModal);
+        reLockBtn.addEventListener('click', hideModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideModal();
+        });
+
+        // Verify Answer
+        unlockForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userAttempt = passwordInput.value.toLowerCase().trim();
+
+            if (userAttempt === currentPassword) {
+                errorMessage.textContent = "";
+                modalLetterContent.innerHTML = currentLetterContent;
+                
+                // Transition to letter
+                passwordView.classList.add('hidden');
+                letterView.classList.remove('hidden');
+            } else {
+                errorMessage.textContent = "Incorrect answer. Try again.";
+                passwordInput.value = "";
+                passwordInput.focus();
             }
         });
     </script>
