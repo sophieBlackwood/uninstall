@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Goodbye — uninstall</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Dedicated styles for goodbye.html bulletin board extensions */
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem 2rem;
+        }
+
+        .submission-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2.5rem;
+            max-width: 750px;
+            margin: 0 auto 4rem auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .submission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-mourn), transparent);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            border-radius: 2px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent-mourn);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 12px rgba(140, 59, 82, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 130px;
+            line-height: 1.6;
+        }
+
+        .bulletin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 280px;
+            flex: 1;
+            max-width: 360px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.65rem 1rem 0.65rem 2.4rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            border-radius: 2px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-mourn);
+        }
+
+        .bulletin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .bulletin-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bulletin-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+            background: var(--bg-card-hover);
+        }
+
+        .bulletin-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .bulletin-to {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .bulletin-subject {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-mourn);
+            font-weight: 500;
+        }
+
+        .bulletin-date {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .bulletin-text {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin-bottom: 1.8rem;
+            white-space: pre-wrap;
+            font-style: italic;
+        }
+
+        .bulletin-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .candle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.78rem;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .candle-btn.lit, .candle-btn:hover {
+            border-color: var(--accent-mourn);
+            color: #f3d299;
+            background: rgba(140, 59, 82, 0.15);
+        }
+
+        .candle-btn i {
+            color: #d97706;
+            transition: transform 0.2s ease;
+        }
+
+        .candle-btn.lit i {
+            color: #fbbf24;
+            filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
+            transform: scale(1.15);
+        }
+
+        .empty-bulletin {
+            text-align: center;
+            padding: 4rem 1rem;
+            grid-column: 1 / -1;
+            color: var(--text-dim);
+        }
+
+        .notification-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-mourn);
+            color: var(--text-primary);
+            padding: 0.8rem 1.8rem;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .notification-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html#home" class="brand">
+            <img src="logo.png" alt="logo" class="nav-logo" onerror="this.style.display='none'">
+            uninstall
+        </a>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#reason">Reason</a>
+            <a href="index.html#letters">Letters</a>
+            <a href="goodbye.html" style="color: var(--text-primary);">Bulletin</a>
+        </div>
+        <a href="goodbye.html" class="highlight-link">Say Goodbye</a>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <!-- Hero Header -->
+        <header class="hero-text" style="margin-bottom: 3.5rem;">
+            <span class="section-subtitle">Public Release Bulletin</span>
+            <h1>Say Goodbye</h1>
+            <p>Leave a letter or message behind in our public bulletin board. Release what you can no longer carry into the digital void.</p>
+        </header>
+
+        <!-- Submission Form Card -->
+        <section class="submission-card">
+            <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: left;">Release a Letter</h2>
+            <p style="text-align: left; margin-bottom: 1.8rem; font-size: 0.88rem;">Your note will be posted publicly to the release board. Answers and identities are entirely anonymous.</p>
+            
+            <form id="publicLetterForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="recipientName">To / Recipient or Alias</label>
+                        <input type="text" id="recipientName" class="form-input" placeholder="e.g. Someone in 2019, Alex, The Past" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectTag">Subject / Process Name</label>
+                        <input type="text" id="subjectTag" class="form-input" placeholder="e.g. Unspoken Words, Memory Leak, Closure" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="letterContent">Your Goodbye Message</label>
+                    <textarea id="letterContent" class="form-textarea" placeholder="Write what you never got to say..." required></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <span style="font-size: 0.75rem; color: var(--text-dim);"><i class="fa-solid fa-eye-slash"></i> Stored in local stream & publicly shared</span>
+                    <button type="submit" class="btn" style="display: inline-flex; align-items: center; gap: 0.6rem;">
+                        <i class="fa-solid fa-paper-plane" style="font-size: 0.8rem;"></i> Release into the Void
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
+        <!-- Bulletin Board Section -->
+        <section id="bulletinSection">
+            <div class="bulletin-header">
+                <div>
+                    <h2 style="margin-bottom: 0.2rem; text-align: left;">Public Bulletin</h2>
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-dim);">Whispers and final releases left by visitors.</p>
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Filter by recipient or subject...">
+                </div>
+            </div>
+
+            <!-- Grid of Cards -->
+            <div id="bulletinGrid" class="bulletin-grid">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="notification-toast">
+        <i class="fa-solid fa-check" style="color: var(--accent-mourn);"></i>
+        <span id="toastMsg">Letter released into the bulletin.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; uninstall — release & quiet</p>
+        <p class="subtext"><a href="index.html">Return to Home</a> &bull; <a href="#top">Back to Top</a></p>
+    </footer>
+
+    <!-- Interactive Bulletin Script -->
+    <script>
+        // Initial Mock Data for Bulletin Board
+        const initialLetters = [
+            {
+                id: 'default-1',
+                to: "To My First Server",
+                subject: "Legacy Deployment",
+                text: "We spent endless midnight hours debugging lines that no longer exist on any active host. Thank you for keeping the lights on while we figured out who we were.",
+                date: "Oct 24, 2026",
+                candles: 14
+            },
+            {
+                id: 'default-2',
+                to: "To the Midnight Calls",
+                subject: "Unspoken Memory",
+                text: "I kept the log files for years thinking I'd read them again. Today I cleared the cache. It hurts less than I thought it would.",
+                date: "Oct 22, 2026",
+                candles: 29
+            },
+            {
+                id: 'default-3',
+                to: "To Version 1.0",
+                subject: "Deprecated Threads",
+                text: "You weren't perfect, but you were the foundation. I'm letting go of the need to rewrite what was already built.",
+                date: "Oct 19, 2026",
+                candles: 8
+            }
+        ];
+
+        // Retrieve stored letters or initialize defaults
+        function getStoredLetters() {
+            const saved = localStorage.getItem('uninstall_public_letters');
+            if (!saved) {
+                localStorage.setItem('uninstall_public_letters', JSON.stringify(initialLetters));
+                return initialLetters;
+            }
+            try {
+                return JSON.parse(saved);
+            } catch (e) {
+                return initialLetters;
+            }
+        }
+
+        // Save letters to localStorage
+        function saveLetters(letters) {
+            localStorage.setItem('uninstall_public_letters', JSON.stringify(letters));
+        }
+
+        // Format Date
+        function formatDate(dateObj) {
+            const options = { month: 'short', day: 'numeric', year: 'numeric' };
+            return dateObj.toLocaleDateString('en-US', options);
+        }
+
+        // Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // Render Cards to Board
+        function renderBoard(filter = "") {
+            const grid = document.getElementById('bulletinGrid');
+            const letters = getStoredLetters();
+            const litCandles = JSON.parse(localStorage.getItem('uninstall_lit_candles') || '{}');
+
+            const filtered = letters.filter(item => {
+                const term = filter.toLowerCase().trim();
+                return item.to.toLowerCase().includes(term) || 
+                       item.subject.toLowerCase().includes(term) || 
+                       item.text.toLowerCase().includes(term);
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-bulletin">
+                        <i class="fa-regular fa-comment-dots" style="font-size: 2rem; margin-bottom: 1rem; color: var(--text-dim);"></i>
+                        <p>No release notes found matching your filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => {
+                const isLit = litCandles[item.id] ? 'lit' : '';
+                return `
+                    <div class="bulletin-card" data-id="${item.id}">
+                        <div>
+                            <div class="bulletin-meta">
+                                <div>
+                                    <div class="bulletin-to">${escapeHTML(item.to)}</div>
+                                    <div class="bulletin-subject">${escapeHTML(item.subject)}</div>
+                                </div>
+                                <span class="bulletin-date">${item.date}</span>
+                            </div>
+                            <div class="bulletin-text">"${escapeHTML(item.text)}"</div>
+                        </div>
+                        <div class="bulletin-footer">
+                            <button class="candle-btn ${isLit}" onclick="toggleCandle('${item.id}')">
+                                <i class="fa-solid fa-fire-flame-curved"></i>
+                                <span>${item.candles} Silent ${item.candles === 1 ? 'Candle' : 'Candles'}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Escape HTML for security
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        // Toggle Candle / Reaction Counter
+        window.toggleCandle = function(id) {
+            const letters = getStoredLetters();
+            const litCandles = JSON.parse(localStorage.getItem('uninstall_lit_candles') || '{}');
+            const itemIndex = letters.findIndex(l => l.id === id);
+
+            if (itemIndex > -1) {
+                if (litCandles[id]) {
+                    // Unlight
+                    delete litCandles[id];
+                    letters[itemIndex].candles = Math.max(0, letters[itemIndex].candles - 1);
+                } else {
+                    // Light
+                    litCandles[id] = true;
+                    letters[itemIndex].candles += 1;
+                    showToast("You lit a silent candle for this letter.");
+                }
+
+                localStorage.setItem('uninstall_lit_candles', JSON.stringify(litCandles));
+                saveLetters(letters);
+                renderBoard(document.getElementById('searchInput').value);
+            }
+        };
+
+        // Form Submission Handler
+        document.getElementById('publicLetterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const to = document.getElementById('recipientName').value.trim();
+            const subject = document.getElementById('subjectTag').value.trim();
+            const text = document.getElementById('letterContent').value.trim();
+
+            if (!to || !subject || !text) return;
+
+            const newLetter = {
+                id: 'user-' + Date.now(),
+                to: to,
+                subject: subject,
+                text: text,
+                date: formatDate(new Date()),
+                candles: 1
+            };
+
+            const letters = getStoredLetters();
+            letters.unshift(newLetter); // Add to top
+            saveLetters(letters);
+
+            // Mark candle as lit for author by default
+            const litCandles = JSON.parse(localStorage.getItem('uninstall_lit_candles') || '{}');
+            litCandles[newLetter.id] = true;
+            localStorage.setItem('uninstall_lit_candles', JSON.stringify(litCandles));
+
+            // Reset form
+            this.reset();
+
+            // Render and feedback
+            renderBoard();
+            showToast("Your letter has been released into the public board.");
+
+            // Smooth scroll to bulletin
+            document.getElementById('bulletinSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Search Filter Event
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            renderBoard(e.target.value);
+        });
+
+        // Initialize on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderBoard();
+        });
+    </script>
+</body>
+</html>
